@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Formulário</title>
+</head>
+<body>
+
+    <header>
+        <h1>Formulário</h1>
+    </header>
+
+    <form id="myForm">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="gender">Gênero:</label>
+        <select id="gender" name="gender" required>
+            <option value="masculino">Masculino</option>
+            <option value="feminino">Feminino</option>
+        </select>
+
+        <label>Interesses:</label>
+        <div>
+            <input type="checkbox" id="interest1" name="interests" value="programação">
+            <label for="interest1">Programação</label>
+        </div>
+        <div>
+            <input type="checkbox" id="interest2" name="interests" value="design">
+            <label for="interest2">Design</label>
+        </div>
+
+        <label>Escolha uma linguagem de programação favorita:</label>
+        <div>
+            <input type="radio" id="language1" name="programmingLanguage" value="javascript">
+            <label for="language1">JavaScript</label>
+        </div>
+        <div>
+            <input type="radio" id="language2" name="programmingLanguage" value="python">
+            <label for="language2">Python</label>
+        </div>
+
+        <button type="button" onclick="submitForm()">Enviar</button>
+    </form>
+
+    <div id="response">
+        <!-- Respostas do formulário serão exibidas aqui -->
+    </div>
+    <footer>
+        <p> 2024 &copy; Desenvolvido por Geraud</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
