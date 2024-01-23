@@ -16,7 +16,7 @@ function submitForm() {
             <p><strong>Nome:</strong> ${name}</p>
             <p><strong>E-mail:</strong> ${email}</p>
             <p><strong>Gênero:</strong> ${gender}</p>
-            <p><strong>Interesses:</strong> ${interests.join(', ')}</p>
+            <p><strong>Interesses:</strong> ${interests.join(' e ', '.')}</p>
             <p><strong>Linguagem de Programação Favorita:</strong> ${programmingLanguage || 'Nenhuma selecionada'}</p>
         `;
 
