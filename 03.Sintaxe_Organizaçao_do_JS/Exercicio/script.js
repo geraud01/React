@@ -1,6 +1,6 @@
 function submitForm() {
     // Simular um "fake loading"
-    document.getElementById('response').innerHTML = '<p>Loading...</p>';
+    document.getElementById('response').innerHTML = '<p>Carregando...</p>';
 
     // Após algum tempo (simulando uma requisição assíncrona)
     setTimeout(function () {
