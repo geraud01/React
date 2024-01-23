@@ -35,9 +35,10 @@ function App() {
       <HelloWorld style={commonStyle} date={date.toLocaleString()} />
       <HelloWorld style={{ ...commonStyle, backgroundColor: '#e6f7ff' }} date={date.toLocaleString()} />
       <HelloWorld style={{ ...commonStyle, color: 'white', backgroundColor: '#4CAF50' }} date={date.toLocaleString()} />
-      {/* Adicione mais estilos e componentes conforme necessário */}
+
     </div>
   );
 }
 
 export default App;
+
