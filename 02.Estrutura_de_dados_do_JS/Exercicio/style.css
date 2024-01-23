@@ -2,9 +2,20 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
 }
 
 .calculator {
@@ -33,9 +44,11 @@ button {
 }
 
 footer {
+    margin-top: 20px;
     text-align: center;
-    padding: 10px 0;
-    background-color: #333;
-    color: #fff;
 }
 
+footer p {
+    margin: 0;
+    font-size: 12px;
+}
