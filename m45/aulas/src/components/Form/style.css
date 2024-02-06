@@ -1,0 +1,7 @@
+.Form {
+    border: 1px solid #000;
+    border-radius: 1rem;
+    margin: 4rem auto;
+    padding: 2rem;
+    width: 500px;
+}
