@@ -1,10 +1,17 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f4f4;
-    margin-top: auto;
-    margin-left: 20rem;
-    margin-right: 20rem;
-    margin-bottom: 10rem;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    flex-direction: column; /* Ajuste para orientação vertical */
+}
+
+.header {
+    text-align: center;
 }
 
 h1 {
@@ -12,14 +19,18 @@ h1 {
     text-align: center;
 }
 
+
+
 .container {
     max-width: 600px;
-    margin: 50px auto;
+    width: 100%;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /* Adicionado para espaçamento do topo */
 }
+
 
 form {
     display: flex;
@@ -45,7 +56,6 @@ button {
     border-radius: 5px;
     font-size: 16px;
     transition: background-color 0.3s;
-    
 }
 
 button:hover {
@@ -86,11 +96,26 @@ td {
     display: none;
 }
 
-footer {
+.footer {
     text-align: center;
     padding: 10px 0;
-    background-color: auto;
+    background-color: auto; 
     color: #0d0d0d;
+}
+
+/* Adicionado media query para ajustes em telas menores */
+@media only screen and (max-width: 600px) {
+    body {
+        margin: 5px; /* Margem menor para telas menores */
+    }
+
+    .container {
+        max-width: 100%; /* Container ocupa 100% da largura da tela */
+    }
+
+    table {
+        margin-top: 10px; /* Margem menor para telas menores */
+    }
 }
 
 
