@@ -1,4 +1,3 @@
-/* Adicione estilos globais */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f4f4f4;
@@ -13,7 +12,7 @@ body {
 /* Container principal */
 .App {
   width: 90%;
-  max-width: 400px; /* Ajuste o valor conforme necessário */
+  max-width: 400px; 
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
@@ -82,7 +81,7 @@ button:hover {
 footer {
   text-align: center;
   padding: 10px 0;
-  background-color: #f4f4f4; /* Adicione uma cor de fundo se desejar */
+  background-color: #f4f4f4; 
   color: #333; /* Cor do texto */
 }
 
