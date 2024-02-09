@@ -114,8 +114,11 @@ const Formulario = () => {
       </footer>
 
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-        <h2>Detalhes do Registro</h2>
-        <pre>{JSON.stringify(detalhesRegistro, null, 2)}</pre>
+      <button className="close-button" onClick={() => setModalIsOpen(false)}>
+        Fechar
+      </button>
+      <h2>Detalhes do Registro</h2>
+      <pre>{JSON.stringify(detalhesRegistro, null, 2)}</pre>
       </Modal>
     </div>
   );
