@@ -103,19 +103,25 @@ td {
     color: #0d0d0d;
 }
 
-/* Adicionado media query para ajustes em telas menores */
 @media only screen and (max-width: 600px) {
-    body {
-        margin: 5px; /* Margem menor para telas menores */
+    form {
+      width: 90%;
+      margin: 0 auto;
     }
-
-    .container {
-        max-width: 100%; /* Container ocupa 100% da largura da tela */
+  
+    label {
+      font-size: 14px;
     }
-
-    table {
-        margin-top: 10px; /* Margem menor para telas menores */
+  
+    input,
+    select,
+    button {
+      width: 100%;
     }
-}
-
+  
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 
