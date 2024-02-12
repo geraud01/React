@@ -1,134 +1,174 @@
-import React, { useState } from 'react';
-import './App.css';
+// components/Formulario.js
 
-function App() {
-  const [formData, setFormData] = useState({
+import React, { useState } from 'react';
+import Modal from 'react-modal';
+import CampoTexto from './components/CampoTexto'; 
+import CampoGenero from './components/CampoGenero'; 
+import CampoSelect from './components/CampoSelect'; 
+import RespostaItem from './components/RespostaItem';
+import './styles/App.css';
+
+
+const Formulario = () => {
+  const [dadosFormulario, setDadosFormulario] = useState({
     nome: '',
     idade: '',
-    genero: 'masculino', // Valor padrão para evitar erro no radio
+    genero: '',
     estadoCivil: '',
     tipoDocumento: '',
-    cpfCnpj: '',
+    cpfCnpj: ''
+  });
+  const [historico, setHistorico] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [detalhesRegistro, setDetalhesRegistro] = useState({});
+  const [ordenacao, setOrdenacao] = useState({
+    campo: null,
+    ordem: 'asc'
   });
 
-  const [resposta, setResposta] = useState('');
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setDadosFormulario({ ...dadosFormulario, [name]: value });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    // Validação básica (pode ser expandida conforme necessário)
-    if (!formData.nome || !formData.idade || !formData.genero) {
-      alert('Preencha todos os campos obrigatórios.');
-      return;
-    }
+    const novaResposta = { ...dadosFormulario, data: new Date() };
+    setHistorico([novaResposta, ...historico]);
 
-    // Construir resposta
-    const responseText = `
-      Nome: ${formData.nome}
-      Idade: ${formData.idade}
-      Gênero: ${formData.genero}
-      Estado Civil: ${formData.estadoCivil || 'Não informado'}
-      Tipo de Documento: ${formData.tipoDocumento || 'Não informado'}
-      CPF ou CNPJ: ${formData.cpfCnpj || 'Não informado'}
-    `;
-
-    // Atualizar resposta e limpar formulário
-    setResposta(responseText);
-    setFormData({
+    setDadosFormulario({
       nome: '',
       idade: '',
-      genero: 'masculino',
+      genero: '',
       estadoCivil: '',
       tipoDocumento: '',
-      cpfCnpj: '',
+      cpfCnpj: ''
     });
   };
 
+  const handleExcluir = (index) => {
+    const novoHistorico = [...historico];
+    novoHistorico.splice(index, 1);
+    setHistorico(novoHistorico);
+  };
+
+  const handleDetalhes = (index) => {
+    setDetalhesRegistro(historico[index]);
+    setModalIsOpen(true);
+  };
+
+  const handleOrdenacao = (campo) => {
+    if (ordenacao.campo === campo) {
+      setOrdenacao({
+        ...ordenacao,
+        ordem: ordenacao.ordem === 'asc' ? 'desc' : 'asc'
+      });
+    } else {
+      setOrdenacao({
+        campo,
+        ordem: 'asc'
+      });
+    }
+  };
+
+  const ordenarHistorico = (a, b) => {
+    const { campo, ordem } = ordenacao;
+
+    if (ordem === 'asc') {
+      return a[campo] > b[campo] ? 1 : -1;
+    } else {
+      return a[campo] < b[campo] ? 1 : -1;
+    }
+  };
+
   return (
-    <div className="App">
-      {/* Cabeçalho */}
+    <div className="container">
       <header>
-        <h1>Formulário</h1>
+        <h1>Formulario</h1>
       </header>
 
       <form onSubmit={handleSubmit}>
-        <label>
-          Nome:
-          <input type="text" name="nome" value={formData.nome} onChange={handleInputChange} required />
-        </label>
-
-        <label>
-          Idade:
-          <input type="number" name="idade" value={formData.idade} onChange={handleInputChange} required />
-        </label>
-
-        <div>
-          Gênero:
-          <label>
-            Masculino
-            <input
-              type="radio"
-              name="genero"
-              value="masculino"
-              checked={formData.genero === 'masculino'}
-              onChange={handleInputChange}
-            />
-          </label>
-          <label>
-            Feminino
-            <input
-              type="radio"
-              name="genero"
-              value="feminino"
-              checked={formData.genero === 'feminino'}
-              onChange={handleInputChange}
-            />
-          </label>
-        </div>
-
-        <label>
-          Estado Civil:
-          <input type="text" name="estadoCivil" value={formData.estadoCivil} onChange={handleInputChange} />
-        </label>
-
-        <label>
-          Tipo de Documento:
-          <select name="tipoDocumento" value={formData.tipoDocumento} onChange={handleInputChange}>
-            <option value="">Selecione...</option>
-            <option value="cpf">CPF</option>
-            <option value="cnpj">CNPJ</option>
-            {/* Adicione mais opções conforme necessário */}
-          </select>
-        </label>
-
-        <label>
-          Número:
-          <input type="text" name="cpfCnpj" value={formData.cpfCnpj} onChange={handleInputChange} />
-        </label>
-
+        <CampoTexto
+          label="Nome:"
+          type="text"
+          name="nome"
+          value={dadosFormulario.nome}
+          onChange={handleChange}
+        />
+        <CampoTexto
+          label="Idade:"
+          type="number"
+          name="idade"
+          value={dadosFormulario.idade}
+          onChange={handleChange}
+        />
+        <CampoGenero
+          label="Gênero:"
+          genero={dadosFormulario.genero}
+          onChange={handleChange}
+        />
+        <CampoTexto
+          label="Estado Civil:"
+          type="text"
+          name="estadoCivil"
+          value={dadosFormulario.estadoCivil}
+          onChange={handleChange}
+        />
+        <CampoSelect
+          label="Tipo de Documento:"
+          name="tipoDocumento"
+          value={dadosFormulario.tipoDocumento}
+          onChange={handleChange}
+        />
+        <CampoTexto
+          label="Numero do documento:"
+          type="text"
+          name="cpfCnpj"
+          value={dadosFormulario.cpfCnpj}
+          onChange={handleChange}
+        />
         <button type="submit">Enviar</button>
       </form>
 
-      <div className="resposta">
-        <h2>Resposta:</h2>
-        <pre>{resposta}</pre>
+      <div className="panel">
+        <h2>Painel de Respostas</h2>
+        <div className="ordenacao-botoes">
+          <button onClick={() => handleOrdenacao('nome')}>
+            Nome {ordenacao.campo === 'nome' && (ordenacao.ordem === 'asc' ? '▲' : '▼')}
+          </button>
+          <button onClick={() => handleOrdenacao('idade')}>
+            Idade {ordenacao.campo === 'idade' && (ordenacao.ordem === 'asc' ? '▲' : '▼')}
+          </button>
+          <button onClick={() => handleOrdenacao('genero')}>
+            Gênero {ordenacao.campo === 'genero' && (ordenacao.ordem === 'asc' ? '▲' : '▼')}
+          </button>
+        </div>
+        <ul>
+          {historico.sort(ordenarHistorico).map((resposta, index) => (
+            <RespostaItem
+              key={index}
+              resposta={resposta}
+              handleExcluir={() => handleExcluir(index)}
+              handleDetalhes={() => handleDetalhes(index)}
+            />
+          ))}
+        </ul>
       </div>
 
       <footer>
-        <p>&copy; 2024 Geraud Oliveira</p>
+        <p>© 2024 Geraud Oliveira. Todos os direitos reservados.</p>
       </footer>
 
+      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+        <button className="close-button" onClick={() => setModalIsOpen(false)}>
+          Fechar
+        </button>
+        <h2>Detalhes do Registro</h2>
+        <pre>{JSON.stringify(detalhesRegistro, null, 2)}</pre>
+      </Modal>
     </div>
-    
-  ); 
-}
+  );
+};
 
-export default App;
+export default Formulario;

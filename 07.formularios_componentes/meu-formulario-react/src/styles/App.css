@@ -43,6 +43,21 @@ select {
   width: 100%;
 }
 
+.CampoGenero {
+  display: flex;
+  flex-direction: column;
+}
+
+.CampoGenero label {
+  margin-top: 10px;
+  font-size: 16px;
+  text-align: center; /* Centraliza o texto */
+}
+
+.CampoGenero input[type="radio"] {
+  margin-top: 5px; /* Espaço entre os radio buttons */
+}
+
 /* Estilo para campos de opções */
 div {
   margin-bottom: 15px;
