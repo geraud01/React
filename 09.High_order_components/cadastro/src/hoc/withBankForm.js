@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import '../styles/commonStyles.css';
 
+
 const withBankForm = (WrappedComponent) => {
   return (props) => {
     const [formData, setFormData] = useState({});
@@ -13,15 +14,11 @@ const withBankForm = (WrappedComponent) => {
     };
 
     const isValidEmail = (email) => {
-      // Adicione sua lógica de validação de email aqui
-      // Por exemplo, uma expressão regular básica para verificar o formato do email
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailRegex.test(email);
     };
 
     const isValidCPF = (cpf) => {
-      // Adicione sua lógica de validação de CPF aqui
-      // Por exemplo, uma expressão regular básica para verificar o formato do CPF
       const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
       return cpfRegex.test(cpf);
     };
@@ -31,6 +28,28 @@ const withBankForm = (WrappedComponent) => {
 
       if (!formData.name) {
         newErrors.name = 'Nome é obrigatório';
+      }
+
+      if (props.formType === 'form-group') {
+        if (!formData.companyName) {
+          newErrors.companyName = 'Nome da Empresa é obrigatório';
+        }
+
+        if (!formData.cnpj) {
+          newErrors.cnpj = 'CNPJ é obrigatório';
+        }
+
+        if (!formData.telephone) {
+          newErrors.telephone = 'Telefone é obrigatório';
+        }
+
+        if (!formData.amount || parseFloat(formData.amount) <= 0) {
+          newErrors.amount = 'A quantidade deve ser maior que zero';
+        }
+
+        if (!formData.address) {
+          newErrors.address = 'Endereço é obrigatório';
+        }
       }
 
       if (!formData.email) {
@@ -45,12 +64,6 @@ const withBankForm = (WrappedComponent) => {
         newErrors.cpf = 'CPF inválido';
       }
 
-      if (!formData.age) {
-        newErrors.age = 'Idade é obrigatória';
-      } else if (parseInt(formData.age) <= 0) {
-        newErrors.age = 'Idade deve ser maior que zero';
-      }
-
       setErrors(newErrors);
 
       return Object.keys(newErrors).length === 0;
@@ -58,7 +71,10 @@ const withBankForm = (WrappedComponent) => {
 
     const handleBusinessLogic = () => {
       if (props.formType === 'Form2') {
-        // Adicione lógica específica para Form2 aqui
+        if (!formData.amount || parseFloat(formData.amount) <= 0) {
+          setErrors({ amount: 'A quantidade deve ser maior que zero' });
+          return false;
+        }
       }
 
       return true;
@@ -93,3 +109,4 @@ const withBankForm = (WrappedComponent) => {
 };
 
 export default withBankForm;
+

@@ -67,8 +67,11 @@ const PersonalForm = ({ formData, errors, successMessage, onInputChange, onSubmi
         {errors.age && <div className="error-message">{errors.age}</div>}
       </div>
 
+      
       {successMessage && <div className="success-message">{successMessage}</div>}
-      <button onClick={onSubmit}>Enviar</button>
+      <button className="submit-button" onClick={onSubmit}>
+        Enviar
+      </button>
     </div>
   );
 };

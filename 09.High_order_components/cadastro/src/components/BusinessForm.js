@@ -1,43 +1,74 @@
-// /src/components/BusinessForm.js
+// /src/components/PersonalForm.js
 import React from 'react';
 import withBankForm from '../hoc/withBankForm';
 
-const BusinessForm = ({ formData, errors, successMessage, onInputChange, onSubmit }) => {
+const PersonalForm = ({ formData, errors, successMessage, onInputChange, onSubmit }) => {
   return (
-    <div className="bank-form">
-      <h2>Formulário de Pessoa Jurídica</h2>
+    <div>
+      <h2>Formulário de Pessoa Física</h2>
+
       <div className="form-group">
-        <label className="label" htmlFor="companyName">
+        <label className="label" htmlFor="name">
           Nome da Empresa:
         </label>
         <input
-          className={`input ${errors.companyName ? 'error-input' : ''}`}
+          className="input"
           type="text"
-          id="companyName"
-          name="companyName"
-          value={formData.companyName || ''}
-          onChange={(e) => onInputChange('companyName', e.target.value)}
+          id="name"
+          name="name"
+          value={formData.name || ''}
+          onChange={(e) => onInputChange('name', e.target.value)}
         />
-        {errors.companyName && <div className="error-message">{errors.companyName}</div>}
+        {errors.name && <div className="error-message">{errors.name}</div>}
       </div>
 
       <div className="form-group">
-        <label className="label" htmlFor="cnpj">
+        <label className="label" htmlFor="email">
+          Email:
+        </label>
+        <input
+          className="input"
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email || ''}
+          onChange={(e) => onInputChange('email', e.target.value)}
+        />
+        {errors.email && <div className="error-message">{errors.email}</div>}
+      </div>
+
+      <div className="form-group">
+        <label className="label" htmlFor="cpf">
           CNPJ:
         </label>
         <input
-          className={`input ${errors.cnpj ? 'error-input' : ''}`}
+          className="input"
           type="text"
-          id="cnpj"
-          name="cnpj"
-          value={formData.cnpj || ''}
-          onChange={(e) => onInputChange('cnpj', e.target.value)}
+          id="cpf"
+          name="cpf"
+          value={formData.cpf || ''}
+          onChange={(e) => onInputChange('cpf', e.target.value)}
         />
-        {errors.cnpj && <div className="error-message">{errors.cnpj}</div>}
+        {errors.cpf && <div className="error-message">{errors.cpf}</div>}
       </div>
 
-      {/* Adicione mais campos e validações conforme necessário */}
+      <div className="form-group">
+        <label className="label" htmlFor="telephone">
+            Telefone:
+        </label>
+        <input
+             className="input"
+            type="tel"  // Alterado para o tipo 'tel'
+            id="telephone"  // Alterado para 'telephone'
+             name="telephone"
+            value={formData.telephone || ''}
+            onChange={(e) => onInputChange('telephone', e.target.value)} 
+        />
+        
+        {errors.age && <div className="error-message">{errors.age}</div>}
+      </div>
 
+      
       {successMessage && <div className="success-message">{successMessage}</div>}
       <button className="submit-button" onClick={onSubmit}>
         Enviar
@@ -46,6 +77,5 @@ const BusinessForm = ({ formData, errors, successMessage, onInputChange, onSubmi
   );
 };
 
-export default withBankForm(BusinessForm);
-
+export default withBankForm(PersonalForm);
 
