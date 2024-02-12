@@ -3,7 +3,7 @@ body {
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -12,7 +12,7 @@ body {
 /* Container principal */
 .App {
   width: 90%;
-  max-width: 400px; 
+  max-width: 400px;
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
@@ -30,14 +30,26 @@ h1 {
 form {
   display: flex;
   flex-direction: column;
+  padding: 10px;
 }
 
 label {
   margin-top: 10px;
+  margin-bottom: 10px;
   font-size: 16px;
+  flex-direction: column;
 }
 
-input,
+input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Estilo para campos de select */
 select {
   padding: 10px;
   margin-bottom: 10px;
@@ -51,6 +63,21 @@ select {
 div {
   margin-bottom: 15px;
   padding: 10px;
+}
+
+.CampoGenero {
+  display: flex;
+  flex-direction: column;
+}
+
+.CampoGenero label {
+  margin-top: 10px;
+  font-size: 16px;
+  text-align: left; /* Centraliza o texto */
+}
+
+.CampoGenero input[type="radio"] {
+  margin-top: 5px; /* Espaço entre os radio buttons */
 }
 
 /* Botão */
@@ -81,13 +108,12 @@ button:hover {
 footer {
   text-align: center;
   padding: 10px 0;
-  background-color: #f4f4f4; 
+  background-color: #f4f4f4;
   color: #333; /* Cor do texto */
 }
 
 /* Modal */
-
-ReactModal__Overlay {
+.ReactModal__Overlay {
   opacity: 0;
   transition: opacity 300ms ease-in-out;
 }
@@ -124,7 +150,7 @@ footer {
 }
 
 @media (max-width: 768px) {
-  .container {
+  .App {
     width: 95%;
   }
 }
@@ -143,7 +169,7 @@ footer {
     font-size: 1rem;
   }
 
-  li button {
+  .panel li button {
     font-size: 0.9rem;
   }
 
@@ -151,3 +177,4 @@ footer {
     font-size: 0.8rem;
   }
 }
+
