@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import '../styles/commonStyles.css';
 
-
 const withBankForm = (WrappedComponent) => {
   return (props) => {
     const [formData, setFormData] = useState({});
@@ -23,6 +22,16 @@ const withBankForm = (WrappedComponent) => {
       return cpfRegex.test(cpf);
     };
 
+    const isValidCNPJ = (cnpj) => {
+      const cnpjRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
+      return cnpjRegex.test(cnpj);
+    };
+
+    const isValidState = (state) => {
+      const stateRegex = /^[A-Z]{2}$/; // Expressão regular para dois caracteres maiúsculos
+      return stateRegex.test(state);
+    };
+
     const validateForm = () => {
       const newErrors = {};
 
@@ -30,66 +39,77 @@ const withBankForm = (WrappedComponent) => {
         newErrors.name = 'Nome é obrigatório';
       }
 
-      if (props.formType === 'form-group') {
+      // Adicione as validações específicas para o PersonalForm
+      if (props.formType === 'PersonalForm') {
+        if (!formData.email) {
+          newErrors.email = 'Email é obrigatório';
+        } else if (!isValidEmail(formData.email)) {
+          newErrors.email = 'Email inválido';
+        }
+
+        if (!formData.cpf) {
+          newErrors.cpf = 'CPF é obrigatório';
+        } else if (!isValidCPF(formData.cpf)) {
+          newErrors.cpf = 'CPF inválido';
+        }
+      }
+
+      if (props.formType === 'BusinessForm') {
         if (!formData.companyName) {
           newErrors.companyName = 'Nome da Empresa é obrigatório';
         }
-
+    
         if (!formData.cnpj) {
           newErrors.cnpj = 'CNPJ é obrigatório';
+        } else if (!isValidCNPJ(formData.cnpj)) {
+          newErrors.cnpj = 'CNPJ inválido';
         }
-
+    
         if (!formData.telephone) {
           newErrors.telephone = 'Telefone é obrigatório';
         }
-
-        if (!formData.amount || parseFloat(formData.amount) <= 0) {
-          newErrors.amount = 'A quantidade deve ser maior que zero';
-        }
-
+    
         if (!formData.address) {
           newErrors.address = 'Endereço é obrigatório';
         }
+    
+        if (!formData.number) {
+          newErrors.number = 'Número é obrigatório';
+        }
+    
+        if (!formData.bairro) {
+          newErrors.bairro = 'Bairro é obrigatório';
+        }
+    
+        if (!formData.cidade) {
+          newErrors.cidade = 'Cidade é obrigatória';
+        }
+    
+        if (!formData.estado) {
+          newErrors.estado = 'Estado é obrigatório';
+        } else if (!isValidState(formData.estado)) {
+          newErrors.estado = 'Devem ser dois caracteres maiúsculos';
+        }
       }
-
-      if (!formData.email) {
-        newErrors.email = 'Email é obrigatório';
-      } else if (!isValidEmail(formData.email)) {
-        newErrors.email = 'Email inválido';
-      }
-
-      if (!formData.cpf) {
-        newErrors.cpf = 'CPF é obrigatório';
-      } else if (!isValidCPF(formData.cpf)) {
-        newErrors.cpf = 'CPF inválido';
-      }
-
+    
       setErrors(newErrors);
-
+    
       return Object.keys(newErrors).length === 0;
     };
 
-    const handleBusinessLogic = () => {
-      if (props.formType === 'Form2') {
-        if (!formData.amount || parseFloat(formData.amount) <= 0) {
-          setErrors({ amount: 'A quantidade deve ser maior que zero' });
-          return false;
-        }
-      }
-
-      return true;
-    };
-
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
       const isValid = validateForm();
 
       if (isValid) {
-        const isBusinessValid = handleBusinessLogic();
+        // Lógica adicional para o envio bem-sucedido
+        setSuccessMessage('Cadastro realizado com sucesso!');
 
-        if (isBusinessValid) {
-          setFormData({});
-          setSuccessMessage('Cadastro realizado com sucesso!');
-        }
+        // Adicione um pequeno atraso para exibir a mensagem antes de limpar o formulário
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        // Limpeza do formulário
+        setFormData({});
+        setSuccessMessage('');
       }
     };
 
@@ -109,4 +129,3 @@ const withBankForm = (WrappedComponent) => {
 };
 
 export default withBankForm;
-
