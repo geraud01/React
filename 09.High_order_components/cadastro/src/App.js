@@ -10,7 +10,6 @@ const App = () => {
 
   return (
     <div>
-      <h1>Formulario</h1>
 
       {/* Renderizando o formulário de pessoa física */}
       <PersonalFormWithHOC formType="PersonalForm" />

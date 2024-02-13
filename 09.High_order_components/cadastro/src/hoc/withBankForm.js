@@ -9,6 +9,7 @@ const withBankForm = (WrappedComponent) => {
     const [successMessage, setSuccessMessage] = useState('');
 
     const handleInputChange = (name, value) => {
+      console.log(`Input changed - Name: ${name}, Value: ${value}`);
       setFormData({ ...formData, [name]: value });
     };
 
@@ -28,7 +29,7 @@ const withBankForm = (WrappedComponent) => {
     };
 
     const isValidState = (state) => {
-      const stateRegex = /^[A-Z]{2}$/; // Expressão regular para dois caracteres maiúsculos
+      const stateRegex = /^[A-Z]{2}$/;
       return stateRegex.test(state);
     };
 
@@ -39,7 +40,6 @@ const withBankForm = (WrappedComponent) => {
         newErrors.name = 'Nome é obrigatório';
       }
 
-      // Adicione as validações específicas para o PersonalForm
       if (props.formType === 'PersonalForm') {
         if (!formData.email) {
           newErrors.email = 'Email é obrigatório';
@@ -52,48 +52,52 @@ const withBankForm = (WrappedComponent) => {
         } else if (!isValidCPF(formData.cpf)) {
           newErrors.cpf = 'CPF inválido';
         }
+
+        if (!formData.telephone) {
+          newErrors.telephone = 'Telefone é obrigatório';
+        }
       }
 
       if (props.formType === 'BusinessForm') {
         if (!formData.companyName) {
           newErrors.companyName = 'Nome da Empresa é obrigatório';
         }
-    
+
         if (!formData.cnpj) {
           newErrors.cnpj = 'CNPJ é obrigatório';
         } else if (!isValidCNPJ(formData.cnpj)) {
           newErrors.cnpj = 'CNPJ inválido';
         }
-    
+
         if (!formData.telephone) {
           newErrors.telephone = 'Telefone é obrigatório';
         }
-    
+
         if (!formData.address) {
           newErrors.address = 'Endereço é obrigatório';
         }
-    
+
         if (!formData.number) {
           newErrors.number = 'Número é obrigatório';
         }
-    
+
         if (!formData.bairro) {
           newErrors.bairro = 'Bairro é obrigatório';
         }
-    
+
         if (!formData.cidade) {
           newErrors.cidade = 'Cidade é obrigatória';
         }
-    
+
         if (!formData.estado) {
           newErrors.estado = 'Estado é obrigatório';
         } else if (!isValidState(formData.estado)) {
           newErrors.estado = 'Devem ser dois caracteres maiúsculos';
         }
       }
-    
+
       setErrors(newErrors);
-    
+
       return Object.keys(newErrors).length === 0;
     };
 
@@ -101,13 +105,8 @@ const withBankForm = (WrappedComponent) => {
       const isValid = validateForm();
 
       if (isValid) {
-        // Lógica adicional para o envio bem-sucedido
         setSuccessMessage('Cadastro realizado com sucesso!');
-
-        // Adicione um pequeno atraso para exibir a mensagem antes de limpar o formulário
         await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        // Limpeza do formulário
         setFormData({});
         setSuccessMessage('');
       }

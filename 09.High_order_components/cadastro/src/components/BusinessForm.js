@@ -127,8 +127,6 @@ const BusinessForm = ({ formData, errors, successMessage, onInputChange, onSubmi
           {errors.estado && <div className="error-message">{errors.estado}</div>}
         </div>
 
-        {/* Adicionar os demais campos conforme necessário */}
-
         {successMessage && <div className="success-message">{successMessage}</div>}
         <button className="submit-button" onClick={onSubmit}>
           Enviar
