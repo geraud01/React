@@ -1,0 +1,32 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+.App {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #007bff;
+}
+
+/* Adaptação para Telas Pequenas */
+@media (max-width: 600px) {
+  .search-form {
+    flex-direction: column;
+  }
+
+  .form-group {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .search-button {
+    width: 100%;
+  }
+}
