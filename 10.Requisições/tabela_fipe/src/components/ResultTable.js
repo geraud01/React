@@ -1,4 +1,3 @@
-// ResultTable.js
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import '../styles/ResultTable.css';
@@ -29,3 +28,4 @@ const ResultTable = ({ result }) => {
 };
 
 export default ResultTable;
+

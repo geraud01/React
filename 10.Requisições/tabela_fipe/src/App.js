@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchForm from './components/SearchForm';
-import ResultsTable from './components/ResultTable';
+import ResultTable from './components/ResultTable';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/App.css';
+
+const isValidString = (value) => typeof value === 'string' && value.trim() !== '';
 
 const App = () => {
   const [brand, setBrand] = useState('');
@@ -15,15 +17,12 @@ const App = () => {
   const [result, setResult] = useState(null);
 
   useEffect(() => {
-    // Carregar a lista de marcas ao montar o componente
     fetchBrands();
   }, []);
 
   const fetchBrands = async () => {
     try {
-      const response = await axios.get(
-        'https://parallelum.com.br/fipe/api/v1/carros/marcas'
-      );
+      const response = await axios.get('https://parallelum.com.br/fipe/api/v1/carros/marcas');
       setBrandsList(response.data);
     } catch (error) {
       console.error('Erro ao buscar marcas:', error);
@@ -55,14 +54,14 @@ const App = () => {
 
   const handleBrandChange = (selectedBrand) => {
     setBrand(selectedBrand);
-    setModelsList([]); // Limpar a lista de modelos ao escolher uma nova marca
-    setYearsList([]); // Limpar a lista de anos ao escolher uma nova marca
+    setModelsList([]);
+    setYearsList([]);
   };
 
   const handleModelChange = (selectedModel) => {
     setModel(selectedModel);
-    setYearsList([]); // Limpar a lista de anos ao escolher um novo modelo
-    fetchYears(); // Chamar o método para buscar anos
+    setYearsList([]);
+    fetchYears();
   };
 
   const handleYearChange = (selectedYear) => {
@@ -70,7 +69,7 @@ const App = () => {
   };
 
   const handleSearch = () => {
-    if (!brand || !model || !year) {
+    if (!isValidString(brand) || !isValidString(model) || !isValidString(year)) {
       console.error('Por favor, preencha todos os campos.');
       return;
     }
@@ -93,8 +92,7 @@ const App = () => {
         onYearChange={handleYearChange}
         onSearch={handleSearch}
       />
-      {/* Exibir o resultado aqui */}
-      <ResultsTable result={result} />
+      <ResultTable result={result} />
     </div>
   );
 };

@@ -1,11 +1,12 @@
-// SearchForm.js
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import '../styles/SearchForm.css';
 
+const isValidString = (value) => typeof value === 'string' && value.trim() !== '';
+
 const SearchForm = ({ brand, model, year, onBrandChange, onModelChange, onYearChange, onSearch }) => {
   const handleSearch = () => {
-    if (!brand || !model || !year) {
+    if (!isValidString(brand) || !isValidString(model) || !isValidString(year)) {
       console.error('Por favor, preencha todos os campos.');
       return;
     }
@@ -53,4 +54,3 @@ const SearchForm = ({ brand, model, year, onBrandChange, onModelChange, onYearCh
 };
 
 export default SearchForm;
-
