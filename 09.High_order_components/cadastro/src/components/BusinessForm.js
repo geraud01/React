@@ -1,7 +1,15 @@
 import React from 'react';
-import withBankForm from '../hoc/withBankForm';
+import useBankForm from '../hooks/withBankForm';
 
-const BusinessForm = ({ formData, errors, successMessage, onInputChange, onSubmit }) => {
+const EmpresaForm = () => {
+  const {
+    formData,
+    errors,
+    successMessage,
+    onInputChange,
+    onSubmit,
+  } = useBankForm('EmpresaForm');
+
   return (
     <div className="form-container">
       <div className="bank-form">
@@ -136,6 +144,6 @@ const BusinessForm = ({ formData, errors, successMessage, onInputChange, onSubmi
   );
 };
 
-export default withBankForm(BusinessForm);
+export default EmpresaForm;
 
 

@@ -1,12 +1,20 @@
-// /src/components/PersonalForm.js
 import React from 'react';
-import withBankForm from '../hoc/withBankForm';
+import useBankForm from '../hooks/withBankForm';
 
-const PersonalForm = ({ formData, errors, successMessage, onInputChange, onSubmit }) => {
+const PersonalForm = () => {
+  const {
+    formData,
+    errors,
+    successMessage,
+    onInputChange,
+    onSubmit,
+  } = useBankForm('PersonalForm');
+
   return (
     <div className="form-container">
       <div className="bank-form">
         <h2>Formulário de Pessoa Física</h2>
+        
         <div className="form-group">
           <label className="label" htmlFor="name">
             Nome:
@@ -76,4 +84,4 @@ const PersonalForm = ({ formData, errors, successMessage, onInputChange, onSubmi
   );
 };
 
-export default withBankForm(PersonalForm);
+export default PersonalForm;
